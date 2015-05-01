@@ -49,6 +49,7 @@
     <ion-view>
       <ion-content>
         <h1>Hello! Hunts go here.</h1>
+        <button ng-click="test()" class="button">Click me!</button>
       </ion-content>
     </ion-view>
   </script>
@@ -56,8 +57,31 @@
   <script type="text/ng-template" id="pics.html">
     <ion-view>
       <ion-content>
-        <h1>Pictures here</h1>
+        <div ng-repeat="photo in photos">
+          <div class="card">
+            <div class="item item-text-wrap">
+              <img class="photo" src="{{photo.src}}">
+              <p>{{photo.comment}}</p>
+              <button ng-click="openModal(photo)" class="button">View moar....</button>
+            </div>
+          </div>
+        </div>
+        <button ng-click="test()" class="button">Click me!</button>
+      </ion-content>
       </ion-content>
     </ion-view>
   </script>
+    
+  <script type="text/ng-template" id="picInfo.html">
+    <ion-modal-view>
+      <ion-header-bar>
+        <h1 ng-click="closeModal()" class="title">Photo Info</h1>
+      </ion-header-bar>
+      <ion-content>
+        <img class="photo" src="{{selectedPhoto.src}}">
+        <button ng-click="test()" class="button">Click me!</button>
+      </ion-content>
+    </ion-modal-view>
+  </script>
+
 </html>
