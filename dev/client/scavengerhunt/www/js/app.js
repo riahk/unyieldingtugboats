@@ -1,27 +1,24 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('scavengerhunt', ['ionic'])
+angular.module('scavengerhunt', ['ionic', 
+               'scavengerhunt.photos',
+               'scavengerhunt.hunts'])
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
 
   $stateProvider.state('home', {
     url: '/',
-    templateUrl: 'hunts.html',
+    templateUrl: 'templates/hunts.html',
     controller: 'HuntsCtrl'
   })
 
   .state('pics', {
     url: 'pics',
-    templateUrl: 'pics.html',
+    templateUrl: 'templates/pics.html',
     controller: 'PhotosCtrl'
   })
 
 })
 .controller('AppCtrl', function($ionicModal, $scope) {
-  $ionicModal.fromTemplateUrl('huntsmodal.html', {
+  $ionicModal.fromTemplateUrl('templates/huntsmodal.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
@@ -37,50 +34,6 @@ angular.module('scavengerhunt', ['ionic'])
     $scope.modal.remove();
   });
   
-})
-.controller('HuntsCtrl', function($scope) {
-  $scope.test = function() {
-    console.log('hello!');
-  }
-})
-.controller('PhotosCtrl', function($scope, $ionicModal) {
-  $scope.photos = [
-    {
-      src: "img/noah.jpg",
-      lat: 37.783482,
-      lon: -122.409116,
-      comment: "It's Noah!!! Nice hat."
-    },
-    {
-      src: "img/building.jpg",
-      lat: 37.783602,
-      lon: -122.409360,
-      comment: "cool building."
-    }
-  ];
-  $ionicModal.fromTemplateUrl('picInfo.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  $scope.selectedPhoto = null;
-
-  $scope.openModal = function(photo) {
-    $scope.selectedPhoto = photo;
-    $scope.modal.show();
-  };
-  $scope.closeModal = function() {
-    $scope.modal.hide();
-  };
-  $scope.$on('$destroy', function() {
-    $scope.modal.remove();
-  });
-
-  $scope.test = function() {
-    console.log(this.selectedPhoto);
-  }
 })
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

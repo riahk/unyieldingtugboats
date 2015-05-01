@@ -1,0 +1,15 @@
+    <ion-view>
+      <ion-content>
+        <div ng-repeat="photo in photos">
+          <div class="card">
+            <div class="item item-text-wrap">
+              <img class="photo" src="{{photo.src}}">
+              <p>{{photo.comment}}</p>
+              <button ng-click="openModal($index)" class="button">View moar....</button>
+            </div>
+          </div>
+        </div>
+        <button ng-click="test()" class="button">Click me!</button>
+      </ion-content>
+    </ion-view>
+
