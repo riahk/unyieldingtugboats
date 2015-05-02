@@ -1,2 +1,8 @@
 module.exports = {
+	fns: function(){
+		
+	}
 }
+
+
+
