@@ -1,7 +1,14 @@
   <ion-view>
     <ion-content>
-      <h1>Hello! Hunts go here.</h1>
-      <button ng-click="test()" class="button">Click me!</button>
+      <div ng-repeat="hunt in hunts">
+          <div class="card">
+            <div class="item item-text-wrap">
+              <img class="photo" src="{{hunt.cover.src}}">
+              <p>{{hunt.title}}</p>
+              <button ng-click="openModal($index)" class="button">View moar....</button>
+            </div>
+          </div>
+        </div>
     </ion-content>
   </ion-view>
 
