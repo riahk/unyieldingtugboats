@@ -6,7 +6,10 @@ var PhotoSchema = new mongoose.Schema({
 	    unique: true,
 	    // 'default': shortid.generate
 	},
-	gps: Object, 
+	loc: {
+		type: [Number],  //[lng, lat]
+		index: '2d' //create the geospatial index
+	}, 
 	tags: Array,
 	info: String, 
 	date: { type: Date, default: Date.now }
