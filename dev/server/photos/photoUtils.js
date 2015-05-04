@@ -57,30 +57,32 @@ module.exports = {
 		console.log('redirect to get photos');
 	},
 
-	fetchPhotosByLoc: function(bounds) {
-		var query = Photo.find({})
-											.where('gps.lng').gt((bounds.southwest.lng).toString()) //.lt((bounds.northeast.lng).toString());
-											.where('gps.lat').gt((bounds.southwest.lat).toString()) //.lt((bounds.northeast.lat).toString());
-		console.log('query: ', query);
+	fetchPhotosByLoc: function(zipLoc, req, res, next) {
+		var limit = 30; 
+		//set max distance to 10km and convert it to radians
+		//radius of earth is appx 6371km
+		var maxDistance = .059;
+		console.log('max distance: ', maxDistance);
 
-		query.exec(function(err, photos){
-			console.log('here are the photos: ', photos);
+		var zipCoords = []; 
+		zipCoords.push(zipLoc.lng); 
+		zipCoords.push(zipLoc.lat);
+
+		console.log("zipCoords: ", zipCoords);
+
+		Photo.find({
+			loc: {
+				$near: zipCoords,
+				$maxDistance: maxDistance
+			}
+		}).limit(limit).exec(function(err, photos) {
+			if (err) {
+				return res.status(500).json(err);
+			}
+			console.log('photos: ', photos);
+			res.status(200).json(photos)
 		})
-
 	},
-
-/*
-	"bounds" : {
-	               "northeast" : {
-	                  "lat" : 37.299909,
-	                  "lng" : -121.980608
-	               },
-	               "southwest" : {
-	                  "lat" : 37.2079899,
-	                  "lng" : -122.12229
-	               }
-	            },
-*/
 
 	fns: function(req, res){
 		res.writeHead(300);

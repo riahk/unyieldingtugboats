@@ -45,18 +45,12 @@ module.exports = function (app) {
   });
 
 
-	app.get('/', function(res, req, next){
-		var bounds = {
-	               "northeast" : {
-	                  "lat" : 37.299909,
-	                  "lng" : -121.980608
-	               },
-	               "southwest" : {
-	                  "lat" : 37.2079899,
-	                  "lng" : -122.0
-	               }
-	            };
-		photoUtils.fetchPhotosByLoc(bounds);
+	app.get('/', function(req, res, next){
+		var zipLoc = {
+	                   "lat" : 37.2638319,
+	                   "lng" : -122.023004
+	                };
+		photoUtils.fetchPhotosByLoc(zipLoc, req, res, next);
 	});
 
 };
