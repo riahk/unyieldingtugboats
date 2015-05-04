@@ -22,10 +22,18 @@ angular.module('scavengerhunt.photos', [])
     $scope.modal = modal;
   });
 
+  $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+
   $scope.selectedPhoto = null;
+
+  $scope.setMap = function(lat, lon) {
+    $scope.map.center.latitude = lat;
+    $scope.map.center.longitude = lon;
+  }
 
   $scope.openModal = function(index) {
     $scope.selectedPhoto = $scope.photos[index];
+    $scope.setMap($scope.selectedPhoto.lat, $scope.selectedPhoto.lon);
     $scope.modal.show();
   };
   $scope.closeModal = function() {

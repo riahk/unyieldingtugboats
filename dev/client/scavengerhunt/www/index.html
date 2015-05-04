@@ -13,11 +13,13 @@
     -->
 
     <!-- google maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-
+    <!--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>-->
+    
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/lodash/dist/lodash.min.js"></script>
+    <script src='lib/angular-google-maps/dist/angular-google-maps.min.js'></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -35,11 +37,23 @@
       <div class="button-bar">
         <a ui-sref="pics" class="button button-icon ion-image"></a>
         <a ui-sref="home" class="button button-icon ion-home"></a>
-        <a ng-click="openModal()" class="button button-icon ion-plus"></a>
+        <a ng-click="toggleMenuRight()" class="button button-icon ion-plus"></a>
       </div>
       </ion-header-bar>
         <ion-nav-view></ion-nav-view>
       </ion-side-menu-content>
+      
+      <ion-side-menu side="right">
+        <ion-header-bar class="bar-dark">
+          <h1 class="title">Create new:</h1>
+        </ion-header-bar>
+        <ion-content>
+          <ion-list>
+            <ion-item ng-click="toggleMenuRight()" ui-sref="newhunt">Scavenger Hunt</ion-item>
+            <ion-item>Photo</ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-side-menu>
     </ion-side-menus>
   </body>
 

@@ -1,6 +1,7 @@
 angular.module('scavengerhunt', ['ionic', 
                'scavengerhunt.photos',
-               'scavengerhunt.hunts'])
+               'scavengerhunt.hunts',
+               'uiGmapgoogle-maps'])
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
 
@@ -16,24 +17,41 @@ angular.module('scavengerhunt', ['ionic',
     controller: 'PhotosCtrl'
   })
 
+  .state('newhunt', {
+    url: 'newhunt',
+    templateUrl: 'templates/huntsmodal.html'
+  });
+
 })
-.controller('AppCtrl', function($ionicModal, $scope) {
+.config(function(uiGmapGoogleMapApiProvider) {
+  uiGmapGoogleMapApiProvider.configure({
+    v: '3.17',
+    libraries: 'weather,geometry,visualization'
+  });
+})
+.controller('AppCtrl', function($ionicModal, $ionicSideMenuDelegate, $scope) {
   $ionicModal.fromTemplateUrl('templates/huntsmodal.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
     $scope.modal = modal;
   });
+  
   $scope.openModal = function() {
     $scope.modal.show();
   };
+
   $scope.closeModal = function() {
     $scope.modal.hide();
   };
+
   $scope.$on('$destroy', function() {
     $scope.modal.remove();
   });
-  
+
+  $scope.toggleMenuRight = function() {
+    $ionicSideMenuDelegate.toggleRight();
+  }
 })
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
