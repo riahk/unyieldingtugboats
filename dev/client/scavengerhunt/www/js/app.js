@@ -19,7 +19,7 @@ angular.module('scavengerhunt', ['ionic',
 
   .state('newhunt', {
     url: 'newhunt',
-    templateUrl: 'templates/huntsmodal.html'
+    templateUrl: 'templates/newhuntsmodal.html'
   });
 
 })
