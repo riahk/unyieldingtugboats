@@ -1,14 +1,17 @@
-  <ion-view>
-    <ion-content>
-      <div ng-repeat="hunt in hunts">
-          <div class="card">
-            <div class="item item-text-wrap">
-              <img class="photo" src="{{hunt.cover.src}}">
-              <p>{{hunt.title}}</p>
-              <button ng-click="openModal($index)" class="button">View moar....</button>
-            </div>
+<!-- hunts/home view -->
+<ion-view>
+  <ion-content>
+    <ion-list ng-repeat="hunt in hunts">
+      <ion-item>
+        <img class="photo" src="{{hunt.cover.src}}">
+        <div class="card">
+          <div class="item item-text-wrap">
+            <p>{{hunt.title}}</p>
           </div>
         </div>
-    </ion-content>
-  </ion-view>
+        <button ng-click="openModal($index)" class="button button-royal button-block">View Details</button>
+      </ion-item>    
+    </ion-list>
+  </ion-content>
+</ion-view>
 

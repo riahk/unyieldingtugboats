@@ -1,0 +1,13 @@
+<ion-view>
+  <ion-header-bar class="bar-dark bar-subheader">
+  <button class="button" ng-click="resetHunt()" ui-sref="home">Cancel</button>
+  <h1 class="title">Photos in {{zipcode}}:</h1>
+  <button class="button" ui-sref="newhuntreview">Review/Save</button>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list ng-repeat="photo in photos">
+      <ion-item><img class="photo" src="{{photo.src}}"></ion-item>
+      <button class="button button-block" ng-click="addPhoto($index)">Add to Hunt</button>
+    </ion-list>
+  </ion-content>
+</ion-view>
