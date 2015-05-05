@@ -6,6 +6,7 @@ var ExifImage = require('exif').ExifImage;
 module.exports = function (app) {
   // app === photoRouter injected from middlware.js
 
+  //on a post to photos/new upload the photo and rename the file with a shortid
   app.post('/new', multer({  dest: './uploads/',
                     //give file a short id for filename which will be also be used in _id field in database
                     rename: function (fieldname, filename, req, res) {
@@ -33,13 +34,14 @@ module.exports = function (app) {
                           }
                       });
                     }
-                  }), photoUtils.fns);
+                  }));
 
-
+	//post req to photos/ has zipcode information; return the json of 30 closest photos
   app.post('/', function(req, res, next){
 	  photoUtils.getZipGPS(req.body.zipcode, req, res, next)	
   });
 
+  //get req to photos/ returns the json of the 30 most recently added photos 
 	app.get('/', function(req, res, next){
 		photoUtils.fetchPhotosByDate(req, res, next);
 	});
