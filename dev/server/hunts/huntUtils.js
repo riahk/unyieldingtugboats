@@ -5,9 +5,17 @@ module.exports = {
   // Hunt Helper Functions
   // ---------------------
 
-  // Get a list of hunts from the database, limit 10
+  // Get a list of hunts from the database, optional zip code, limit 10
+  // curl -i http://localhost:3000/api/hunts
+  // OR
+  // curl -i http://localhost:3000/api/hunts?zip=94536
   getHunts: function(req, res, next) {
-    Hunts.find()
+    var queryObj = {};
+    if (req.query.zip) {
+      queryObj = {region: req.query.zip};
+    }
+
+    Hunts.find(queryObj)
          .limit(10)
          .exec(function(err, results) { 
             if (err) {
@@ -21,11 +29,12 @@ module.exports = {
   },
 
   // Add a new hunt to the database
+  // curl -H "Content-Type: application/json" -X POST -d '{"info" : "infos about hunt", "region" : 94536, "tags" : [ "tag", "another tag" ], "photos" : [ "photo1_id", "photo2_id" ]}' http://localhost:3000/api/hunts/new
   addHunt: function(req, res, next) {
     console.log(req.body);
      Hunts.create(req.body, function(err) {
        if (err) {
-         console.log('Error fetching from Hunts DB');
+         console.log('Error creating new hunt');
          next(err);
        } else {
          console.log('hunt was added');
