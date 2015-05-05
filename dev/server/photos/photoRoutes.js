@@ -17,7 +17,6 @@ module.exports = function (app) {
                   	//helper functions, and the resulting gps object with lat and lng properties in decimal degrees is
                   	//passed to the addPhotoToDb helper function.
                     onFileUploadComplete: function (file, req, res) {
-                     console.log('onFileUploadComplete');
                       new ExifImage({ image : './uploads/' + file.name }, function (error, exifData) {
                           if (error)
                               console.log('Error: '+error.message);
@@ -36,21 +35,13 @@ module.exports = function (app) {
                     }
                   }), photoUtils.fns);
 
-	//a get request returns photos. if its a vanilla get request without a zipcode specified,
-	//then it returns the most recent photos (20?).  If a zipcode is first specified through a post 
-	//request, then it returns the photos from within that zipcode (box)
 
-  app.post('/', function(req, res){
-		photoUtils.getZipGPS(req.body.zipcode, req, res); 
+  app.post('/', function(req, res, next){
+	  photoUtils.getZipGPS(req.body.zipcode, req, res, next)	
   });
 
-
 	app.get('/', function(req, res, next){
-		var zipLoc = {
-	                   "lat" : 37.2638319,
-	                   "lng" : -122.023004
-	                };
-		photoUtils.fetchPhotosByLoc(zipLoc, req, res, next);
+		photoUtils.fetchPhotosByDate(req, res, next);
 	});
 
 };

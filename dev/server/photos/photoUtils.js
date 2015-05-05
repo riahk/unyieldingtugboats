@@ -1,6 +1,8 @@
 var shortid = require('shortid');
 var Photo = require('./photoModel');
-var gm = require('googlemaps');
+var rp = require('request-promise');
+var multer = require('multer');
+var ExifImage = require('exif').ExifImage;
 
 
 
@@ -46,15 +48,21 @@ module.exports = {
 		});
 	},
 
+
 	//this function will turn the zipcode on the request body
 	//into a json object and pass that object to get '/'
-	getZipGPS: function(zipcode, req, res) {
-		console.log('getting Zip GPS with: ', zipcode);
-		console.log(req);
-	},
-
-	redirectToGetPhotos: function(req, res){
-		console.log('redirect to get photos');
+	getZipGPS: function(zipcode, req, res, next) {
+		fetchPhotosByLoc = this.fetchPhotosByLoc; 
+		rp('http://maps.googleapis.com/maps/api/geocode/json?address=' + zipcode).then(function(body){
+			var result = JSON.parse(body);
+	    lat = result.results[0].geometry.location.lat;
+	    lng = result.results[0].geometry.location.lng;
+			var zipLoc = {
+	                   "lat" : lat,
+	             			 "lng" : lng
+			              };
+		  fetchPhotosByLoc(zipLoc, req, res, next);
+		});
 	},
 
 	fetchPhotosByLoc: function(zipLoc, req, res, next) {
@@ -80,8 +88,19 @@ module.exports = {
 				return res.status(500).json(err);
 			}
 			console.log('photos: ', photos);
-			res.status(200).json(photos)
+			res.status(200).json(photos);
 		})
+	},
+
+	fetchPhotosByDate: function(req, res, next) {
+		var limit = 30; 
+		Photo.find({}).limit(limit).sort({date: -1}).exec(function(err, photos) {
+			if (err) {
+				return res.status(500).json(err);
+			}
+			console.log('photos: ', photos);
+			res.status(200).json(photos);
+		});
 	},
 
 	fns: function(req, res){
