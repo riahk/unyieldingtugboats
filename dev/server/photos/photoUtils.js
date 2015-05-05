@@ -1,5 +1,6 @@
 var shortid = require('shortid');
 var Photo = require('./photoModel');
+var Zipcode = require('./zipcodeModel');
 var rp = require('request-promise');
 var multer = require('multer');
 var ExifImage = require('exif').ExifImage;
@@ -51,18 +52,34 @@ module.exports = {
 
 	//this function will turn the zipcode on the request body
 	//into a json object and pass that object to get '/'
-	getZipGPS: function(zipcode, req, res, next) {
-		fetchPhotosByLoc = this.fetchPhotosByLoc; 
-		rp('http://maps.googleapis.com/maps/api/geocode/json?address=' + zipcode).then(function(body){
-			var result = JSON.parse(body);
-	    lat = result.results[0].geometry.location.lat;
-	    lng = result.results[0].geometry.location.lng;
-			var zipLoc = {
-	                   "lat" : lat,
-	             			 "lng" : lng
-			              };
-		  fetchPhotosByLoc(zipLoc, req, res, next);
-		});
+	getZipGPS: function(zip, req, res, next) {
+		fetchPhotosByLoc = this.fetchPhotosByLoc;
+
+		//first see if the zipLoc is already in the database
+		Zipcode.find({ 'zipcode': zip }, function(err, result) {
+			if (result.length){
+				//if it is, retrieve it and then fetchPhotosByLoc
+				console.log('zip in db; result: ', result[0].loc);
+				fetchPhotosByLoc(result[0].loc, req, res, next);
+			} else {
+				//if it isnt, request it and store it then fetchPhotosByLoc
+				console.log('zip not in db, grabbing it from goog');
+				rp('http://maps.googleapis.com/maps/api/geocode/json?address=' + zip).then(function(body){
+					var result = JSON.parse(body);
+			    lat = result.results[0].geometry.location.lat;
+			    lng = result.results[0].geometry.location.lng;
+					var zipLoc = {
+			                   "lat" : lat,
+			             			 "lng" : lng
+					              };
+					Zipcode.create({
+						zipcode: zip,
+						loc: zipLoc
+					});
+				  fetchPhotosByLoc(zipLoc, req, res, next);
+				});
+			}
+		})
 	},
 
 	fetchPhotosByLoc: function(zipLoc, req, res, next) {
