@@ -1,5 +1,8 @@
 var mongoose = require('mongoose');
 
+// Hunt Database Schema
+// --------------------
+
 var HuntSchema = new mongoose.Schema({
 	photos: Array,
 	info: String, 
