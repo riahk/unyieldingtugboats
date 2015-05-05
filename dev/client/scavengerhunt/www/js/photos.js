@@ -1,20 +1,13 @@
+/* photos.js, PhotosCtrl
+ *  - handles functionality for the photo view
+ *  - uses modals to display single photo view
+ */
 angular.module('scavengerhunt.photos', [])
-.controller('PhotosCtrl', function($scope, $ionicModal) {
-  $scope.photos = [
-    {
-      src: "img/noah.jpg",
-      lat: 37.783482,
-      lon: -122.409116,
-      comment: "It's Noah!!! Nice hat."
-    },
-    {
-      src: "img/building.jpg",
-      lat: 37.783602,
-      lon: -122.409360,
-      comment: "cool building."
-    }
-  ];
-    
+.controller('PhotosCtrl', function($scope, $ionicModal, PhotoFact) {
+  // get photos from factory
+  $scope.photos = PhotoFact.photos;
+  
+  // create modal for single photo view  
   $ionicModal.fromTemplateUrl('templates/picInfo.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -22,16 +15,8 @@ angular.module('scavengerhunt.photos', [])
     $scope.modal = modal;
   });
 
-  $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
-
-  $scope.selectedPhoto = null;
-
-  $scope.setMap = function(lat, lon) {
-    $scope.map.center.latitude = lat;
-    $scope.map.center.longitude = lon;
-  }
-
   $scope.openModal = function(index) {
+    //on opening modal, set the selected photo
     $scope.selectedPhoto = $scope.photos[index];
     $scope.setMap($scope.selectedPhoto.lat, $scope.selectedPhoto.lon);
     $scope.modal.show();
@@ -43,7 +28,27 @@ angular.module('scavengerhunt.photos', [])
     $scope.modal.remove();
   });
 
-  $scope.test = function() {
-    console.log(this.selectedPhoto);
+  // create photo map with default locations
+  $scope.map = { center: { latitude: 37, longitude: -122 }, zoom: 19 };
+
+  //selected photo is set when a modal is opened
+  $scope.selectedPhoto = null;
+
+  $scope.marker = null;
+
+  //set location map based on selected photo information
+  $scope.setMap = function(lat, lon) {
+    $scope.map.center.latitude = lat;
+    $scope.map.center.longitude = lon;
+    
+    //set marker
+    $scope.marker = {
+      id: 0,
+      coords: {
+        latitude: lat,
+        longitude: lon
+      }
+    };
   }
+
 });

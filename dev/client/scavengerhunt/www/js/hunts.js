@@ -1,36 +1,13 @@
+/* hunts.js, HuntsCtrl
+ *  - gets hunt data from HuntFactory
+ *  - uses modals to show individual hunt views
+ */
 angular.module('scavengerhunt.hunts', ['uiGmapgoogle-maps'])
-.controller('HuntsCtrl', function($scope, $ionicModal) {
-  $scope.test = function() {
-    console.log('hello!');
-  }
-  
-  $scope.hunts = [
-    {
-      title: 'Test Hunt',
-      cover: {
-              src: "img/noah.jpg",
-              lat: 37.783482,
-              lon: -122.409116,
-              comment: "It's Noah!!! Nice hat."
-            }, 
-      photos: [
-        {
-          src: "img/noah.jpg",
-          lat: 37.783482,
-          lon: -122.409116,
-          comment: "It's Noah!!! Nice hat."
-        },
+.controller('HuntsCtrl', function($scope, $ionicModal, HuntFact) {
+  // hunt data from database
+  $scope.hunts = HuntFact.hunts;
 
-        {
-          src: "img/building.jpg",
-          lat: 37.783602,
-          lon: -122.409360,
-          comment: "cool building."
-        }
-      ]
-    }
-  ];
-
+  // modal for individual views
   $ionicModal.fromTemplateUrl('templates/huntInfo.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -38,23 +15,43 @@ angular.module('scavengerhunt.hunts', ['uiGmapgoogle-maps'])
     $scope.modal = modal;
   });
 
+  // selectedHunt is set when modal is opened
   $scope.selectedHunt = null;
 
   $scope.openModal = function(index) {
     $scope.selectedHunt = $scope.hunts[index];
-    console.log($scope.selectedHunt.title);
-    //$scope.setMap($scope.selectedPhoto.lat, $scope.selectedPhoto.lon);
+    $scope.setMap($scope.selectedHunt.cover.lat, $scope.selectedHunt.cover.lon);
     $scope.modal.show();
   };
+  
   $scope.closeModal = function() {
     $scope.modal.hide();
   };
+  
   $scope.$on('$destroy', function() {
     $scope.modal.remove();
   });
 
+  $scope.map = { center: { latitude: 37, longitude: -122 }, zoom: 19 };
 
+  $scope.map.markers = [];
 
+  $scope.setMap = function(lat, lon) {
+    $scope.map.center.latitude = lat;
+    $scope.map.center.longitude = lon;
+    
+    //set markers
+    for(var i = 0; i < $scope.selectedHunt.photos.length; i++) {
+      var marker = {
+            id: i,
+            latitude: $scope.selectedHunt.photos[i].lat,
+            longitude: $scope.selectedHunt.photos[i].lon,
+            options: {}
+      };
+      $scope.map.markers.push(marker);
+    }
 
+    console.log($scope.map.markers);
+  };  
 })
 

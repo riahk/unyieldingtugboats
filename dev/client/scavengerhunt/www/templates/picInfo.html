@@ -1,11 +1,14 @@
-    <ion-modal-view>
-      <ion-header-bar>
-        <h1 ng-click="closeModal()" class="title">Photo Info</h1>
-      </ion-header-bar>
-      <ion-content>
-        <img class="photo" src="{{selectedPhoto.src}}">
-        <br>
-        <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
-      </ion-content>
-    </ion-modal-view>
+<!-- individual photo view -->
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 ng-click="closeModal()" class="title">Photo Info</h1>
+  </ion-header-bar>
+  <ion-content>
+    <img class="photo" src="{{selectedPhoto.src}}">
+    <br>
+    <ui-gmap-google-map center='map.center' zoom='map.zoom' draggable='true'>
+      <ui-gmap-marker coords="marker.coords" idkey="0"></ui-gmap-marker>
+    </ui-gmap-google-map>
+  </ion-content>
+</ion-modal-view>
 
