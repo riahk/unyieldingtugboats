@@ -1,11 +1,12 @@
 var photoUtils = require('./photoUtils');
 var multer = require('multer');
 var ExifImage = require('exif').ExifImage;
+var serveStatic = require('serve-static');
 
 
 module.exports = function (app) {
   // app === photoRouter injected from middlware.js
-
+  app.param('filename', photoUtils.createFilePath)
   //on a post to photos/new upload the photo and rename the file with a shortid
   app.post('/new', multer({  dest: './uploads/',
                     //give file a short id for filename which will be also be used in _id field in database
@@ -35,6 +36,8 @@ module.exports = function (app) {
                       });
                     }
                   }));
+
+	app.get('/:filename', serveStatic('./uploads/'));
 
 	//post req to photos/ has zipcode information; return the json of 30 closest photos
   app.post('/', function(req, res, next){

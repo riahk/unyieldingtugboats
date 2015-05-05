@@ -128,6 +128,21 @@ module.exports = {
 			console.log('photos: ', photos);
 			res.status(200).json(photos);
 		});
+	},
+
+	createFilePath: function(req, res, next, filename) {
+		//add .jpg to that filename and see if file exists
+		fs.exists('./uploads/' + filename + '.jpg', function(exists) {
+			if (exists){
+				console.log('exists');
+				req.url = filename + '.jpg'
+				next(); 
+			} else {
+				console.log('fs exists error')
+				res.writeHead(404);
+				res.end('fs exists error');
+			}
+		});
 	}
 
 }
