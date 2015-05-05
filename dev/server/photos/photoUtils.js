@@ -3,14 +3,17 @@ var Photo = require('./photoModel');
 var rp = require('request-promise');
 var multer = require('multer');
 var ExifImage = require('exif').ExifImage;
+var fs = require('fs');
 
 
 
 module.exports = {
+	//generates a shortId which associates the filename of the photo with its document in the database
 	generateShortId : function () {
 		return shortid.generate();
 	},
 
+	//exif data is extracted in degree-minute-second format; this function converts d-m-s to decimal degree
 	convertDMStoDeg: function(dmsArray){
 		var deg = dmsArray[0];
 		var min = dmsArray[1];
@@ -19,6 +22,7 @@ module.exports = {
 		return deg + (((min * 60) + sec)/3600);
 	},
 
+	//creates the [lng, lat] array to be stored in the loc field of the photo document
 	makeDecDeg: function(gps){
 		var lat = this.convertDMStoDeg(gps.GPSLatitude);
 		if (gps.GPSLatitudeRef === 'S'){
@@ -32,6 +36,7 @@ module.exports = {
 		return [ lng.toFixed(6), lat.toFixed(6) ];
 	},
 
+	//creates a document in the db that represents the photo
 	addPhotoToDb : function(filename, gps, reqBody){
 		console.log('addPhotoToDb');
 		var tags = reqBody.tags.split(',');
@@ -41,13 +46,15 @@ module.exports = {
 			loc: gps,
 			tags: tags,
 			info: info
-		}, function(error) {
+		}, function(error, photo) {
 			if (error) {
 				console.log ('error');
+			} else {
+				res.writeHead(300);
+				res.end('you uploaded a photo'); 
 			}
 		});
 	},
-
 
 	//this function will turn the zipcode on the request body
 	//into a json object and pass that object to get '/'
@@ -65,19 +72,20 @@ module.exports = {
 		});
 	},
 
+	//sends a response with JSON representation of the 30 closest photos to the location of the zipcode
 	fetchPhotosByLoc: function(zipLoc, req, res, next) {
+		//set limit to be used to determine number of photos returned to 30
 		var limit = 30; 
-		//set max distance to 10km and convert it to radians
-		//radius of earth is appx 6371km
+		//set maxDistance in decimal degrees to determine the max distance of photos returned
 		var maxDistance = .059;
-		console.log('max distance: ', maxDistance);
 
+		//create an array of the longitude and latitude of the location of the zipcode 
+		//(which was determined from google geocode and passed in)
 		var zipCoords = []; 
 		zipCoords.push(zipLoc.lng); 
 		zipCoords.push(zipLoc.lat);
 
-		console.log("zipCoords: ", zipCoords);
-
+		//query the database using the $near geospatial query
 		Photo.find({
 			loc: {
 				$near: zipCoords,
@@ -92,6 +100,8 @@ module.exports = {
 		})
 	},
 
+
+	//sends a response with JSON representation of the 30 most recently added photos
 	fetchPhotosByDate: function(req, res, next) {
 		var limit = 30; 
 		Photo.find({}).limit(limit).sort({date: -1}).exec(function(err, photos) {
@@ -101,11 +111,7 @@ module.exports = {
 			console.log('photos: ', photos);
 			res.status(200).json(photos);
 		});
-	},
-
-	fns: function(req, res){
-		res.writeHead(300);
-		res.end('you uploaded a photo'); 
 	}
+
 }
 
