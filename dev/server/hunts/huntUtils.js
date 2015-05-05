@@ -5,7 +5,7 @@ module.exports = {
   // Hunt Helper Functions
   // ---------------------
 
-  // get list of hunts, limit 10
+  // Get a list of hunts from the database, limit 10
   getHunts: function(req, res, next) {
     Hunts.find()
          .limit(10)
@@ -20,7 +20,7 @@ module.exports = {
           });
   },
 
-  // add hunt to database
+  // Add a new hunt to the database
   addHunt: function(req, res, next) {
     console.log(req.body);
      Hunts.create(req.body, function(err) {
@@ -34,7 +34,7 @@ module.exports = {
     });
   },
 
-  // end request with proper code and data
+  // End request with proper code and response data
   fns: function(req, res){
 
     if (res.queryResults) {
