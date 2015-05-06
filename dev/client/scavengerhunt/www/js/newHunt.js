@@ -1,6 +1,6 @@
 angular.module('scavengerhunt.newhunts', [])
 .controller('NewHuntCtrl', function($scope, $window, NewHuntFact, PhotoFact) {
-  $scope.zipcode = null;
+  // $scope.zipcode = null;
   $scope.zipcode = NewHuntFact.newHunt.zipcode;
 
   $scope.makeHunt = function(zip) {
@@ -12,7 +12,6 @@ angular.module('scavengerhunt.newhunts', [])
     $scope.photos = photos; 
     console.log('make hunt photos: ', $scope.photos);
   });
-    
 
   $scope.resetHunt = function() {
     console.log('$scope.resetHunt called');
