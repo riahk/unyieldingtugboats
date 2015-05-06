@@ -1,4 +1,4 @@
-angular.module('scavengerhunt.huntfactory', ['requestFactory'])
+angular.module('scavengerhunt.huntfactory', [])
 .factory('HuntFact', function(request) {
   return {
   
@@ -29,8 +29,13 @@ angular.module('scavengerhunt.huntfactory', ['requestFactory'])
       }
     ], 
 
-    getHunts: function() {
-      request.request('http://127.0.0.1:3000/api/hunts', null, function(data) {
+    getHunts: function(zip) {
+      var zipCode = '';
+      if (zip) {
+        zipCode = '?zip='+zip;
+      }
+
+      request.request('http://127.0.0.1:3000/api/hunts' + zipCode, null, function(data) {
         console.log(data);
       });
     }

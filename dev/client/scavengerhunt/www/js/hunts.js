@@ -6,7 +6,9 @@ angular.module('scavengerhunt.hunts', ['uiGmapgoogle-maps'])
 .controller('HuntsCtrl', function($scope, $ionicModal, HuntFact) {
   // hunt data from database
   $scope.hunts = HuntFact.hunts;
-  HuntFact.getHunts();
+
+  // Get all hunts from certain zip code
+  HuntFact.getHunts(94536);
 
   // modal for individual views
   $ionicModal.fromTemplateUrl('templates/huntInfo.html', {
