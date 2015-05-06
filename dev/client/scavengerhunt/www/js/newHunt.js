@@ -16,12 +16,10 @@ angular.module('scavengerhunt.newhunts', [])
   $scope.resetHunt = function() {
     console.log('$scope.resetHunt called');
     NewHuntFact.resetHunt(); 
-    $window.location.reload(true)
   };
 
 
   $scope.addPhoto = function(index) {
-    // NewHuntFact.addPhoto(PhotoFact.photos[index]);
     NewHuntFact.addPhoto($scope.photos[index]);
     if(!NewHuntFact.newHunt.cover) { //sets cover to be first photo added
       NewHuntFact.newHunt.cover = $scope.photos[index];
