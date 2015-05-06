@@ -40,6 +40,7 @@ angular.module('scavengerhunt', ['ionic',
   // the photo selection view
   .state('newhuntphotos', {
     url: 'newhunt/photoSelect',
+    cache: false,
     templateUrl: 'templates/newHuntPhotoSelect.html',
     controller: 'NewHuntCtrl'
   })
