@@ -3,7 +3,7 @@
  *  - uses modals to display single photo view
  */
 angular.module('scavengerhunt.photos', [])
-.controller('PhotosCtrl', function($scope, $ionicModal, PhotoFact) {
+.controller('PhotosCtrl', function($scope, $ionicModal, PhotoFact, $ionicLoading) {
   // get photos from factory
   PhotoFact.getPhotos(function(photos) {
     $scope.photos = photos; 
@@ -28,7 +28,7 @@ angular.module('scavengerhunt.photos', [])
   };
   $scope.$on('$destroy', function() {
     $scope.modal.remove();
-  });
+  }); 
 
   // create photo map with default locations
   $scope.map = { center: { latitude: 37, longitude: -122 }, zoom: 19 };
