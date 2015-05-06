@@ -5,7 +5,9 @@
 angular.module('scavengerhunt.photos', [])
 .controller('PhotosCtrl', function($scope, $ionicModal, PhotoFact) {
   // get photos from factory
-  $scope.photos = PhotoFact.photos;
+  PhotoFact.getPhotos(function(photos) {
+    $scope.photos = photos; 
+  })
   
   // create modal for single photo view  
   $ionicModal.fromTemplateUrl('templates/picInfo.html', {

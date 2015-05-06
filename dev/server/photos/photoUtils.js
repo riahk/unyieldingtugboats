@@ -8,6 +8,7 @@ var fs = require('fs');
 
 
 
+
 module.exports = {
 	//generates a shortId which associates the filename of the photo with its document in the database
 	generateShortId : function () {
@@ -112,7 +113,6 @@ module.exports = {
 			if (err) {
 				return res.status(500).json(err);
 			}
-			console.log('photos: ', photos);
 			res.status(200).json(photos);
 		})
 	},
@@ -120,17 +120,18 @@ module.exports = {
 
 	//sends a response with JSON representation of the 30 most recently added photos
 	fetchPhotosByDate: function(req, res, next) {
+		console.log('fetch photos by date called');
 		var limit = 30; 
 		Photo.find({}).limit(limit).sort({date: -1}).exec(function(err, photos) {
 			if (err) {
 				return res.status(500).json(err);
 			}
-			console.log('photos: ', photos);
 			res.status(200).json(photos);
 		});
 	},
 
 	createFilePath: function(req, res, next, filename) {
+		console.log('create File Path called');
 		//add .jpg to that filename and see if file exists
 		fs.exists('./uploads/' + filename + '.jpg', function(exists) {
 			if (exists){
