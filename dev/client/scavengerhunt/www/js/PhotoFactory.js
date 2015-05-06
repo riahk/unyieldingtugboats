@@ -3,30 +3,36 @@
  *  - communicates with RequestFactory to grab photos from the database
  */
 angular.module('scavengerhunt.photofact', [])
-.factory('PhotoFact', function() {
+.factory('PhotoFact', function($http) {
+  var photos = []; 
   return {
-  
-  //test photo set, delete later:
-  photos: [
-    {
-      src: "img/noah.jpg",
-      lat: 37.783482,
-      lon: -122.409116,
-      comment: "It's Noah!!! Nice hat."
-    },
-    {
-      src: "img/building.jpg",
-      lat: 37.783602,
-      lon: -122.409360,
-      comment: "cool building."
-    }
-  ],
-
   // retrieve photos from the server
-  getPhotos: function() {
-    //call request.request with photo url
-    //callback will set this.photos with the returned data
-  }
-
+    getPhotos: function(callback) {
+      $http({
+        method:'GET', 
+        url: '/api/photos'
+      })
+      .then(function(response){
+        photos = response.data.slice(); 
+        //for each photo in the photos, add an object to the photos array
+        photos.forEach(function(photo) {
+          photo.src = 'http://localhost:3000/api/photos/' + photo._id,
+          photo.lon = photo.loc[0],
+          photo.lat = photo.loc[1]
+        })
+        callback(photos);
+      })
+    }
   }
 });
+
+
+//var getAll = function () {
+  //   return $http({
+  //     method: 'GET',
+  //     url: '/api/links'
+  //   })
+  //   .then(function (resp) {
+  //     return resp.data;
+  //   });
+  // };

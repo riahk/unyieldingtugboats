@@ -1,22 +1,29 @@
 angular.module('scavengerhunt.newhunts', [])
-.controller('NewHuntCtrl', function($scope, NewHuntFact, PhotoFact) {
+.controller('NewHuntCtrl', function($scope, $window, NewHuntFact, PhotoFact) {
   $scope.zipcode = null;
+  $scope.zipcode = NewHuntFact.newHunt.zipcode;
 
   $scope.makeHunt = function(zip) {
-    NewHuntFact.setZipCode(zip);
-    $scope.zipcode = NewHuntFact.newHunt.zipcode;
-    console.log(NewHuntFact.newHunt);
+    console.log('make hunt called');
+    NewHuntFact.setZipCode(zip)
   };
+
+  NewHuntFact.getPhotos(function(photos) {
+    $scope.photos = photos; 
+    console.log('make hunt photos: ', $scope.photos);
+  });
+    
 
   $scope.resetHunt = function() {
-    NewHuntFact.newHunt = {};
-    console.log(NewHuntFact.newHunt);
+    console.log('$scope.resetHunt called');
+    NewHuntFact.resetHunt(); 
+    $window.location.reload(true)
   };
 
-  $scope.photos = PhotoFact.photos;
 
   $scope.addPhoto = function(index) {
-    NewHuntFact.addPhoto(PhotoFact.photos[index]);
+    // NewHuntFact.addPhoto(PhotoFact.photos[index]);
+    NewHuntFact.addPhoto($scope.photos[index]);
     console.log('added!');
     console.log(NewHuntFact.newHunt);
   };
