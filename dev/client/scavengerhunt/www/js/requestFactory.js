@@ -1,5 +1,5 @@
-angular.module('reqFactory', [])
-.factory('ReqFact', [$http, function($http) {
+angular.module('requestFactory', [])
+.factory('request', function($http) {
   return {
     request: function(url, data, callback) {
       if (data) {
@@ -21,4 +21,4 @@ angular.module('reqFactory', [])
       }
     }
   }
-}]);
+});

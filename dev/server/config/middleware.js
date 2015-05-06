@@ -7,7 +7,13 @@ module.exports = function (app, express) {
 
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
-  
+
+  // Enable localhost to localhost connections (CORS)
+  app.all('/*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+  });
 
   app.use('/api/hunts', huntRouter); // use hunt router for all user request
   app.use('/api/photos', photoRouter); // user photo router for link request
