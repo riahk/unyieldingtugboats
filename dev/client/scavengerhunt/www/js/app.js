@@ -5,6 +5,7 @@
  * - defines AppController
  */
 angular.module('scavengerhunt', ['ionic',
+               'requestFactory',
                'scavengerhunt.newhuntFactory',
                'scavengerhunt.photofact', 
                'scavengerhunt.huntfactory',

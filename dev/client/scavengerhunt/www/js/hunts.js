@@ -6,6 +6,7 @@ angular.module('scavengerhunt.hunts', ['uiGmapgoogle-maps'])
 .controller('HuntsCtrl', function($scope, $ionicModal, HuntFact) {
   // hunt data from database
   $scope.hunts = HuntFact.hunts;
+  HuntFact.getHunts();
 
   // modal for individual views
   $ionicModal.fromTemplateUrl('templates/huntInfo.html', {

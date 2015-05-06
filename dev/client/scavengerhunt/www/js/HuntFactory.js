@@ -1,5 +1,5 @@
-angular.module('scavengerhunt.huntfactory', [])
-.factory('HuntFact', function() {
+angular.module('scavengerhunt.huntfactory', ['requestFactory'])
+.factory('HuntFact', function(request) {
   return {
   
     hunts: [
@@ -27,7 +27,13 @@ angular.module('scavengerhunt.huntfactory', [])
           }
         ]
       }
-    ]
+    ], 
+
+    getHunts: function() {
+      request.request('http://127.0.0.1:3000/api/hunts', null, function(data) {
+        console.log(data);
+      });
+    }
 
   }
 });

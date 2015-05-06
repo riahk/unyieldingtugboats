@@ -1,9 +1,9 @@
 angular.module('requestFactory', [])
-.factory('request', [$http, function($http) {
+.factory('request', function($http) {
   return {
     request: function(url, data, callback) {
       if (data) {
-        $http.post(url)
+        $http.post(url, data)
         .success(function(response) {
           callback(response);
         })
@@ -11,7 +11,7 @@ angular.module('requestFactory', [])
           console.log('Error: Unable to post data to server');
         });
       } else {
-        $http.get(url, data)
+        $http.get(url)
         .success(function(response) {
           callback(response);
         })
@@ -21,4 +21,4 @@ angular.module('requestFactory', [])
       }
     }
   }
-}]);
+});
