@@ -24,7 +24,7 @@ angular.module('scavengerhunt.newhunts', [])
     // NewHuntFact.addPhoto(PhotoFact.photos[index]);
     NewHuntFact.addPhoto($scope.photos[index]);
     if(!NewHuntFact.newHunt.cover) { //sets cover to be first photo added
-      NewHuntFact.newHunt.cover = PhotoFact.photos[index];
+      NewHuntFact.newHunt.cover = $scope.photos[index];
     }
     console.log('added!');
     console.log(NewHuntFact.newHunt);

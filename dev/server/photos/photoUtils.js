@@ -51,9 +51,6 @@ module.exports = {
 		}, function(error, photo) {
 			if (error) {
 				console.log ('error');
-			} else {
-				res.writeHead(300);
-				res.end('you uploaded a photo'); 
 			}
 		});
 	},
@@ -144,6 +141,10 @@ module.exports = {
 				res.end('fs exists error');
 			}
 		});
+	},
+	fns : function (req, res, next){
+		res.writeHead(300);
+		res.end('you uploaded a photo');
 	}
 
 }
