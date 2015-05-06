@@ -1,11 +1,13 @@
 <ion-view>
   <ion-header-bar class="bar-dark bar-subheader">
-  <button class="button">Back</button>
-  <h1 class="title">Review Hunt</h1>
+  <button class="button" ui-sref="newhuntphotos">Back</button>
+  <h1 class="title">Review Hunt in {{zipcode}}</h1>
   </ion-header-bar>
   <ion-content>
-  A map of photos will go here.
-  <button class="button" ng-click="test()">Test</button>
+    <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+      <ui-gmap-markers models="map.markers" coords="'self'" icon="'icon'" modelsbyref="false">
+      </ui-gmap-markers>
+    </ui-gmap-google-map> 
   <button class="button button-block">Save and Submit</button>
   </ion-content>
 </ion-view>
