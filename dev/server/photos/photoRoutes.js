@@ -35,7 +35,7 @@ module.exports = function (app) {
                           }
                       });
                     }
-                  }));
+                  }), photoUtils.fns);
 
 	app.get('/:filename', serveStatic('./uploads/'));
 
