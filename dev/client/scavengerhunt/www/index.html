@@ -30,6 +30,7 @@
     <script src="js/newHuntFactory.js"></script>
     <script src="js/PhotoFactory.js"></script>
     <script src="js/HuntFactory.js"></script>
+    <script src="js/CameraFactory.js"></script>
     <script src="js/photos.js"></script>
     <script src="js/hunts.js"></script>
     <script src="js/newHunt.js"></script>
@@ -66,7 +67,7 @@
         <ion-content>
           <ion-list>
             <ion-item ng-click="toggleMenuRight()" ui-sref="newhunt">Scavenger Hunt</ion-item>
-            <ion-item>Photo</ion-item>
+            <ion-item ng-click="toggleMenuRight(); getPhoto()" ui-sref="newphoto">Photo</ion-item>
           </ion-list>
         </ion-content>
       </ion-side-menu>

@@ -8,6 +8,7 @@ angular.module('scavengerhunt', ['ionic',
                'scavengerhunt.newhuntFactory',
                'scavengerhunt.photofact', 
                'scavengerhunt.huntfactory',
+               'scavengerhunt.camera',
                'scavengerhunt.photos',
                'scavengerhunt.hunts',
                'scavengerhunt.newhunts',
@@ -48,8 +49,16 @@ angular.module('scavengerhunt', ['ionic',
     url: 'newhunt/review',
     templateUrl: 'templates/newHuntReview.html',
     controller: 'NewHuntCtrl'
+  })
+
+  .state('newphoto', {
+    url: 'newphoto',
+    templateUrl: 'templates/newPhoto.html'
   });
 
+})
+.config(function($compileProvider) {
+  $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 })
 .config(function(uiGmapGoogleMapApiProvider) {
   // asynchronously load the google maps api, as instructed by angular-google-maps.
@@ -59,7 +68,7 @@ angular.module('scavengerhunt', ['ionic',
     libraries: 'weather,geometry,visualization'
   });
 })
-.controller('AppCtrl', function($ionicModal, $ionicSideMenuDelegate, $scope, NewHuntFact) {
+.controller('AppCtrl', function($ionicModal, $ionicSideMenuDelegate, $scope, NewHuntFact, Camera) {
   // Main Application Controller.
    
   // Handles showing a modal. Currently unused, but keeping here for later reference.
@@ -87,6 +96,16 @@ angular.module('scavengerhunt', ['ionic',
   $scope.toggleMenuRight = function() {
     $ionicSideMenuDelegate.toggleRight();
   }
+
+  // camera
+  $scope.getPhoto = function() {
+    Camera.getPicture().then(function(imageURI) {
+      console.log(imageURI);
+      $scope.lastPhoto = imageURI;
+    }, function(err) {
+        console.err(err);
+    }, { quality: 75, targetWidth: 320, targetHeight: 320, saveToPhotoAlbum: false });
+  };
 
 })
 .run(function($ionicPlatform) {
