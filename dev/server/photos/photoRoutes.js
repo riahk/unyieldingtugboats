@@ -31,7 +31,8 @@ module.exports = function (app) {
                             }
 
                             var gps = photoUtils.makeDecDeg(gpsDMS);
-                            photoUtils.addPhotoToDb(file.name, gps, req.body)//add to database
+                            var orientation = exifData.image.Orientation;
+                            photoUtils.addPhotoToDb(file.name, gps, orientation, req.body)//add to database
                           }
                       });
                     }

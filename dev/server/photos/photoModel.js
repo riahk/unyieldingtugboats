@@ -10,6 +10,7 @@ var PhotoSchema = new mongoose.Schema({
 		type: [Number],  //[lng, lat]
 		index: '2d' //create the geospatial index
 	}, 
+	orientation: Number,
 	tags: Array,
 	info: String, 
 	date: { type: Date, default: Date.now }

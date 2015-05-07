@@ -6,7 +6,7 @@
   </ion-header-bar>
   <ion-content>
     <ion-list ng-repeat="photo in photos">
-      <ion-item><img class="photo" src='{{photo.src}}'>
+      <ion-item><img class="photo" rotate orientation='{{photo.orientation}}' src='{{photo.src}}'>
       </ion-item>
       <button class="button button-block" ng-click="addPhoto($index)">Add to Hunt</button>
     </ion-list>

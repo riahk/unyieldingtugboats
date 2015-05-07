@@ -26,13 +26,3 @@ angular.module('scavengerhunt.photofact', [])
   }
 });
 
-
-//var getAll = function () {
-  //   return $http({
-  //     method: 'GET',
-  //     url: '/api/links'
-  //   })
-  //   .then(function (resp) {
-  //     return resp.data;
-  //   });
-  // };

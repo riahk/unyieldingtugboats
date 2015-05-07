@@ -8,7 +8,7 @@
     <ui-gmap-google-map center='map.center' zoom='map.zoom' draggable='true'>
       <ui-gmap-marker coords="marker.coords" idkey="0"></ui-gmap-marker>
     </ui-gmap-google-map>
-    <img class="photo" src="{{selectedPhoto.src}}">
+    <img class="photo" rotate orientation="{{selectedPhoto.orientation}}" src="{{selectedPhoto.src}}">
   </ion-content>
 </ion-modal-view>
 
