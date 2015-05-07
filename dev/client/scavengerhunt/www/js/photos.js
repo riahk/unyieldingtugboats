@@ -8,7 +8,8 @@ angular.module('scavengerhunt.photos', [])
   PhotoFact.getPhotos(function(photos) {
     $scope.photos = photos; 
   })
-  
+
+
   // create modal for single photo view  
   $ionicModal.fromTemplateUrl('templates/picInfo.html', {
     scope: $scope,
@@ -53,4 +54,28 @@ angular.module('scavengerhunt.photos', [])
     };
   }
 
+})
+.directive('rotate', function() {
+    return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+              var r = 'rotate(0deg)'
+              if (attrs.orientation === '6'){
+                r = 'rotate(90deg)'; 
+                element.css({
+                  '-moz-transform': r,
+                  '-webkit-transform': r,
+                  '-o-transform': r,
+                  '-ms-transform': r,
+                });
+              } 
+            }
+        }
 });
+
+
+
+
+
+
+

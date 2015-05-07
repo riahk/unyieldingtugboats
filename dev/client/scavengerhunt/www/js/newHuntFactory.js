@@ -22,7 +22,7 @@ angular.module('scavengerhunt.newhuntFactory', [])
 
     getPhotos: function(callback){
       console.log('get photos with this zip: ', this.newHunt.zipcode)
-      if (this.newHunt.zipcode && photos.length === 0){
+      if (this.newHunt.zipcode){
         $http({
           method:'POST', 
           url: '/api/photos',
