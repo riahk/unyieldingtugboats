@@ -129,15 +129,12 @@ module.exports = {
 	},
 
 	createFilePath: function(req, res, next, filename) {
-		console.log('create File Path called');
 		//add .jpg to that filename and see if file exists
 		fs.exists('./uploads/' + filename + '.jpg', function(exists) {
 			if (exists){
-				console.log('exists');
 				req.url = filename + '.jpg'
 				next(); 
 			} else {
-				console.log('fs exists error')
 				res.writeHead(404);
 				res.end('fs exists error');
 			}
