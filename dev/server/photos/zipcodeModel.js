@@ -1,3 +1,5 @@
+//Zipcode Model Setup
+//--------------------
 var mongoose = require('mongoose');
 
 var ZipcodeSchema = new mongoose.Schema({

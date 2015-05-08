@@ -1,3 +1,6 @@
+//Configure Router Middleware
+//----------------------------
+
 var bodyParser  = require('body-parser');
 
 module.exports = function (app, express) {
@@ -14,9 +17,11 @@ module.exports = function (app, express) {
     res.header("Access-Control-Allow-Headers", "origin, content-type, accept");
     next();
   });
-
-  app.use('/api/hunts', huntRouter); // use hunt router for all user request
-  app.use('/api/photos', photoRouter); // user photo router for link request
+  // use hunt router for all user request
+  app.use('/api/hunts', huntRouter); 
+  
+  // user photo router for link request
+  app.use('/api/photos', photoRouter); 
 
   // inject our routers into their respective route files
   require('../hunts/huntRoutes.js')(huntRouter);

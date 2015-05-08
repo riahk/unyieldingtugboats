@@ -1,15 +1,20 @@
+//Photo Model Setup
+//-----------------
+
 var mongoose = require('mongoose');
 
 var PhotoSchema = new mongoose.Schema({
 	_id: {
 	    type: String,
 	    unique: true,
-	    // 'default': shortid.generate
 	},
 	loc: {
-		type: [Number],  //[lng, lat]
-		index: '2d' //create the geospatial index
+		//[lng, lat]
+		type: [Number],  
+		//create the geospatial index
+		index: '2d' 
 	}, 
+	//orientation of the photo from exif data
 	orientation: Number,
 	tags: Array,
 	info: String, 

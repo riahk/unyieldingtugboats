@@ -8,9 +8,9 @@ angular.module('scavengerhunt.newhunts', [])
     NewHuntFact.setZipCode(zip)
   };
 
+
   NewHuntFact.getPhotos(function(photos) {
     $scope.photos = photos; 
-    console.log('make hunt photos: ', $scope.photos);
   });
 
   $scope.resetHunt = function() {
