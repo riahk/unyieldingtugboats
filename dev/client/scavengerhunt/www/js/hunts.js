@@ -9,8 +9,16 @@ angular.module('scavengerhunt.hunts', ['uiGmapgoogle-maps'])
 
 
   // Get all hunts from certain zip code
-  //$scope.zipcode
-  HuntFact.getHunts(94536);
+  $scope.filterByZip = function(zip) {
+    if (String(zip).match(/^[0-9]{5}$/)) {
+      HuntFact.getHunts(Number(zip), function(hunts) {
+        $scope.hunts = hunts;
+        console.log($scope.hunts);
+      });
+    } else {
+      console.log('please enter valid zip code');
+    }
+  };
 
   // modal for individual views
   $ionicModal.fromTemplateUrl('templates/huntInfo.html', {
