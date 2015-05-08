@@ -10,9 +10,9 @@ var PhotoSchema = new mongoose.Schema({
 	},
 	loc: {
 		//[lng, lat]
-		type: [Number],  
+		type: [Number]  
 		//create the geospatial index
-		index: '2d' 
+		// index: '2d' 
 	}, 
 	//orientation of the photo from exif data
 	orientation: Number,
@@ -22,12 +22,7 @@ var PhotoSchema = new mongoose.Schema({
 
 });
 
-var Photo = mongoose.model('Photo', PhotoSchema);
+PhotoSchema.index({loc:'2d'});
 
-Photo.ensureIndexes(function(err) {
-	if (err) return;
-	else console.log('index created');
-})
 
-module.exports = Photo;
-
+module.exports = mongoose.model('Photo', PhotoSchema);
