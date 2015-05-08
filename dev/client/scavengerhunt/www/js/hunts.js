@@ -7,7 +7,9 @@ angular.module('scavengerhunt.hunts', ['uiGmapgoogle-maps'])
   // hunt data from database
   $scope.hunts = HuntFact.hunts;
 
+
   // Get all hunts from certain zip code
+  //$scope.zipcode
   HuntFact.getHunts(94536);
 
   // modal for individual views
