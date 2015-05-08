@@ -22,5 +22,12 @@ var PhotoSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('Photo', PhotoSchema);
+var Photo = mongoose.model('Photo', PhotoSchema);
+
+Photo.ensureIndexes(function(err) {
+	if (err) return;
+	else console.log('index created');
+})
+
+module.exports = Photo;
 
