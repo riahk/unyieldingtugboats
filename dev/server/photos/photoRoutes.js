@@ -38,7 +38,7 @@ module.exports = function (app) {
                     }
                   }), photoUtils.fns);
 
-	app.get('/:filename', serveStatic('./uploads/'));
+  app.get('/:filename', serveStatic('./uploads/'));
 
 	//post req to photos/ has zipcode information; return the json of 30 closest photos
   app.post('/', function(req, res, next){
