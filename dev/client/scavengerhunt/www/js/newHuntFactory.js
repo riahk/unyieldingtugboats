@@ -25,7 +25,7 @@ angular.module('scavengerhunt.newhuntFactory', [])
       if (this.newHunt.zipcode && photos.length === 0){
         $http({
           method:'POST', 
-          url: '/api/photos',
+          url: 'http://localhost:3000/api/photos',
           // data: {zipcode: 95070}
           data: { zipcode: this.newHunt.zipcode}
         })
