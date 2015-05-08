@@ -1,55 +1,50 @@
+//New Hunt Factory
+//----------------
+
 angular.module('scavengerhunt.newhuntFactory', [])
 .factory('NewHuntFact', function($http) {
   var photos = []; 
   return {
     newHunt: {},
 
+    //adds a photo to the hunt
     addPhoto: function(photo) {
       this.newHunt.photos = this.newHunt.photos || [];
       this.newHunt.photos.push(photo);
     },
 
+    //sets the zipcode of the hunt
     setZipCode: function(zip) {
       this.newHunt = {};
       this.newHunt.zipcode = zip;
-      console.log('zipcode set to : ', this.newHunt.zipcode, zip);
     },
 
-    returnPhotos: function(){
-      console.log('return photos: ', photos);
-      return photos; 
-    },
 
+    //gets the appropriate photos near the hunt zipcode from the server
     getPhotos: function(callback){
-      console.log('get photos with this zip: ', this.newHunt.zipcode)
       if (this.newHunt.zipcode){
         $http({
           method:'POST', 
           url: 'http://localhost:3000/api/photos',
-          // data: {zipcode: 95070}
           data: { zipcode: this.newHunt.zipcode}
         })
         .then(function(response){
           photos = response.data.slice(); 
-          console.log('this.photos: ', photos);
-          //for each photo in the this.photos, add an object to the this.photos array
+          //for each photo in the photos, add  src, lon, and lat properties 
           photos.forEach(function(photo) {
             photo.src = 'http://localhost:3000/api/photos/' + photo._id,
             photo.lon = photo.loc[0],
             photo.lat = photo.loc[1]
           })
-          console.log('this.photos in getPhotos: ', photos)
-          // callback(this.photos);
           callback(photos)
         })
       }
     },
 
+    //resets the hunt object and photos array
     resetHunt: function() {
       this.newHunt = {};
       photos = [];
-      console.log('photos: ', this.photos);
-      console.log('this.newHunt: ', this.newHunt);
     }
   }  
 });

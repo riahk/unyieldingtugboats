@@ -1,3 +1,6 @@
+//Helper Functions for Photo route middleware
+//-------------------------------------------------
+
 var shortid = require('shortid');
 var Photo = require('./photoModel');
 var Zipcode = require('./zipcodeModel');
@@ -5,9 +8,6 @@ var rp = require('request-promise');
 var multer = require('multer');
 var ExifImage = require('exif').ExifImage;
 var fs = require('fs');
-
-
-
 
 module.exports = {
 	//generates a shortId which associates the filename of the photo with its document in the database
@@ -128,6 +128,7 @@ module.exports = {
 		});
 	},
 
+	//create a filepath based on the filename parameter of the URL and see if that photo exists
 	createFilePath: function(req, res, next, filename) {
 		//add .jpg to that filename and see if file exists
 		fs.exists('./uploads/' + filename + '.jpg', function(exists) {
@@ -140,6 +141,7 @@ module.exports = {
 			}
 		});
 	},
+	
 	fns : function (req, res, next){
 		res.writeHead(300);
 		res.end('you uploaded a photo');
