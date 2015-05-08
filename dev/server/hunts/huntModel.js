@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 // --------------------
 
 var HuntSchema = new mongoose.Schema({
+  cover: String,
 	photos: Array,
 	info: String, 
 	tags: Array, 

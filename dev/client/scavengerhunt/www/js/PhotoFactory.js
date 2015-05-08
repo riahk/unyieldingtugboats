@@ -10,7 +10,7 @@ angular.module('scavengerhunt.photofact', [])
     getPhotos: function(callback) {
       $http({
         method:'GET', 
-        url: '/api/photos'
+        url: 'http://localhost:3000/api/photos'
       })
       .then(function(response){
         photos = response.data.slice(); 
