@@ -4,12 +4,12 @@ var mongoose = require('mongoose');
 // --------------------
 
 var HuntSchema = new mongoose.Schema({
-  cover: String,
+  cover: Object,
 	photos: Array,
 	info: String, 
 	tags: Array, 
-	region: Number //geo spatial data? 
-	//fields
+	region: Number,
+	date: { type: Date, default: Date.now } 
 });
 
 module.exports = mongoose.model('Hunt', HuntSchema);

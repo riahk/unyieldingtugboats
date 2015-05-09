@@ -20,6 +20,8 @@ angular.module('scavengerhunt', ['ionic',
   // hunts view (homepage)
   $stateProvider.state('home', {
     url: '/',
+    cache: false,
+    reload: true,
     templateUrl: 'templates/hunts.html',
     controller: 'HuntsCtrl'
   })
@@ -49,6 +51,7 @@ angular.module('scavengerhunt', ['ionic',
   // review and save hunt. shows photo map.
   .state('newhuntreview', {
     url: 'newhunt/review',
+    cache: false,
     templateUrl: 'templates/newHuntReview.html',
     controller: 'NewHuntCtrl'
   })

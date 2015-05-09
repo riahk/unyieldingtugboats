@@ -13,19 +13,32 @@ module.exports = {
     var queryObj = {};
     if (req.query.zip) {
       queryObj = {region: req.query.zip};
+      Hunts.find(queryObj)
+           .limit(10)
+           .exec(function(err, results) { 
+              if (err) {
+                console.log('Error fetching from Hunts DB');
+                next(err);
+              } else {
+                res.queryResults = JSON.stringify(results);
+                next();
+              }
+            });
+    } else {
+      Hunts.find({})
+           .limit(10)
+           .sort({date: -1})
+           .exec(function(err, results) { 
+              if (err) {
+                console.log('Error fetching from Hunts DB');
+                next(err);
+              } else {
+                res.queryResults = JSON.stringify(results);
+                next();
+              }
+            });
     }
 
-    Hunts.find(queryObj)
-         .limit(10)
-         .exec(function(err, results) { 
-            if (err) {
-              console.log('Error fetching from Hunts DB');
-              next(err);
-            } else {
-              res.queryResults = JSON.stringify(results);
-              next();
-            }
-          });
   },
 
   // Add a new hunt to the database

@@ -5,7 +5,9 @@
 angular.module('scavengerhunt.hunts', ['uiGmapgoogle-maps'])
 .controller('HuntsCtrl', function($scope, $ionicModal, HuntFact) {
   // hunt data from database
-  $scope.hunts = HuntFact.hunts;
+  HuntFact.getHunts(null, function(hunts) {
+    $scope.hunts = hunts
+  });
 
 
   // Get all hunts from certain zip code
@@ -13,7 +15,7 @@ angular.module('scavengerhunt.hunts', ['uiGmapgoogle-maps'])
     if (String(zip).match(/^[0-9]{5}$/)) {
       HuntFact.getHunts(Number(zip), function(hunts) {
         $scope.hunts = hunts;
-        console.log($scope.hunts);
+        console.log("scope.hunts: ", $scope.hunts);
       });
     } else {
       console.log('please enter valid zip code');
@@ -67,4 +69,20 @@ angular.module('scavengerhunt.hunts', ['uiGmapgoogle-maps'])
     console.log($scope.map.markers);
   };  
 })
-
+.directive('rotate', function() {
+    return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+              var r = 'rotate(0deg)'
+              if (attrs.orientation === '6'){
+                r = 'rotate(90deg)'; 
+                element.css({
+                  '-moz-transform': r,
+                  '-webkit-transform': r,
+                  '-o-transform': r,
+                  '-ms-transform': r,
+                });
+              } 
+            }
+        }
+});
