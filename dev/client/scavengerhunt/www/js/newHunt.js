@@ -1,5 +1,5 @@
 angular.module('scavengerhunt.newhunts', [])
-.controller('NewHuntCtrl', function($scope, $window, NewHuntFact, PhotoFact, request) {
+.controller('NewHuntCtrl', function($scope, $state, $window, NewHuntFact, PhotoFact, request) {
   // $scope.zipcode = null;
   $scope.zipcode = NewHuntFact.newHunt.zipcode;
 
@@ -28,23 +28,25 @@ angular.module('scavengerhunt.newhunts', [])
     console.log(NewHuntFact.newHunt);
   };
 
-  $scope.addHunt = function() {
+  $scope.addHunt = function(info) {
     var newHunt = {};
 
     // Transfer relevant hunt data to new, properly
     // formatted object, then send to server
     newHunt.region = NewHuntFact.newHunt.zipcode;
-    newHunt.cover = NewHuntFact.newHunt.cover._id;
+    newHunt.cover = NewHuntFact.newHunt.cover;
     newHunt.photos = []; // ids of all photos
     NewHuntFact.newHunt.photos.forEach(function(photo) {
-      newHunt.photos.push(photo._id);
+      newHunt.photos.push(photo);
     });
-    newHunt.info = ''; // store info/description about the hunt
+    newHunt.info = info || 'this is a scavenger hunt'; // store info/description about the hunt
+    console.log('info', info);
     newHunt.tags = []; // store tags about the hunt
 
     request.request('http://localhost:3000/api/hunts/new', newHunt, function(response) {
       console.log('successfully added hunt? ', response);
     });
+    $state.reload(); 
   };
 
   $scope.setZip = function() {
