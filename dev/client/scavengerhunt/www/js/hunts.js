@@ -47,14 +47,11 @@ angular.module('scavengerhunt.hunts', ['uiGmapgoogle-maps'])
     $scope.modal.remove();
   });
 
-  // $scope.map = { center: { latitude: 37, longitude: -122 }, zoom: 16 };
   $scope.map = {zoom: 14};
 
   $scope.map.markers = [];
 
   $scope.setMap = function(lat, lon) {
-    // $scope.map.center.latitude = lat;
-    // $scope.map.center.longitude = lon;
     var latLngArray = [];
     
     //set markers

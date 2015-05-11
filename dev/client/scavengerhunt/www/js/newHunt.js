@@ -39,7 +39,7 @@ angular.module('scavengerhunt.newhunts', [])
     NewHuntFact.newHunt.photos.forEach(function(photo) {
       newHunt.photos.push(photo);
     });
-    newHunt.info = info || 'this is a scavenger hunt'; // store info/description about the hunt
+    newHunt.info = info || 'An awesome scavenger hunt!'; // store info/description about the hunt
     console.log('info', info);
     newHunt.tags = []; // store tags about the hunt
 
@@ -59,22 +59,33 @@ angular.module('scavengerhunt.newhunts', [])
 
   $scope.setMap = function() {
     if(NewHuntFact.newHunt.photos) {
-      $scope.map.center.latitude = NewHuntFact.newHunt.cover.lat;
-      $scope.map.center.longitude = NewHuntFact.newHunt.cover.lon;
+      // $scope.map.center.latitude = NewHuntFact.newHunt.cover.lat;
+      // $scope.map.center.longitude = NewHuntFact.newHunt.cover.lon;
     
     
-    //set markers
-    for(var i = 0; i < NewHuntFact.newHunt.photos.length; i++) {
-      var marker = {
-            id: i,
-            latitude: NewHuntFact.newHunt.photos[i].lat,
-            longitude: NewHuntFact.newHunt.photos[i].lon,
-            options: {}
+      //set markers
+      for(var i = 0; i < NewHuntFact.newHunt.photos.length; i++) {
+        var marker = {
+              id: i,
+              latitude: NewHuntFact.newHunt.photos[i].lat,
+              longitude: NewHuntFact.newHunt.photos[i].lon,
+              options: {}
+        };
+        $scope.map.markers.push(marker);
+      }
+      var bounds = new google.maps.LatLngBounds();
+      $scope.map.markers.forEach(function(marker){
+        var position = new google.maps.LatLng(marker.latitude, marker.longitude)
+        bounds.extend(position)
+      });
+
+      var centerHolder = bounds.getCenter(); 
+
+      $scope.map.center = {
+        longitude: centerHolder.F,
+        latitude: centerHolder.A
       };
-      $scope.map.markers.push(marker);
     }
-    }
-    console.log($scope.map.markers);
   }; 
 
   $scope.setMap();
