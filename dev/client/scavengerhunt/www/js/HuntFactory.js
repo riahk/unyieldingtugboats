@@ -1,5 +1,5 @@
 angular.module('scavengerhunt.huntfactory', [])
-.factory('HuntFact', function(request) {
+.factory('HuntFact', function(request, SERVER) {
   var hunts = []; 
   return {
 
@@ -10,7 +10,7 @@ angular.module('scavengerhunt.huntfactory', [])
         zipCode = '?zip='+zip;
       }
 
-      request.request('http://127.0.0.1:3000/api/hunts' + zipCode, null, function(data) {
+      request.request(SERVER.url + '/api/hunts' + zipCode, null, function(data) {
         callback(data);
       });
     }

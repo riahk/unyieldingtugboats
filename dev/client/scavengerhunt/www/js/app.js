@@ -131,6 +131,9 @@ angular.module('scavengerhunt', ['ionic',
   };
 
 })
+.constant('SERVER', {
+  url: 'https://fast-coast-8806.herokuapp.com'
+})
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
