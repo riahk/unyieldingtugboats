@@ -8,14 +8,14 @@
     <button ng-click="filterByZip(zipcode)" class="button button-royal button-block">Submit</button>
     <ion-list ng-repeat="hunt in hunts">
       <ion-item>
-        <img class="photo" src="{{hunt.cover.src}}">
+        <img class="photo" rotate orientation='{{hunt.cover.orientation}}' src="{{hunt.cover.src}}">
+      </ion-item>    
         <div class="card">
           <div class="item item-text-wrap">
             <p>{{hunt.info}}</p>
           </div>
         </div>
         <button ng-click="openModal($index)" class="button button-royal button-block">View Details</button>
-      </ion-item>    
     </ion-list>
   </ion-content>
 </ion-view>

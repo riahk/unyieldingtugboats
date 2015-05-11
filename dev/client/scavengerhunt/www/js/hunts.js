@@ -47,13 +47,13 @@ angular.module('scavengerhunt.hunts', ['uiGmapgoogle-maps'])
     $scope.modal.remove();
   });
 
+  //initializes the map and its markers
   $scope.map = {zoom: 14};
-
   $scope.map.markers = [];
 
+  //adds markers for each photo selected based on their location data; auto centers and fits the 
+  //map based on the markers
   $scope.setMap = function(lat, lon) {
-    var latLngArray = [];
-    
     //set markers
     for(var i = 0; i < $scope.selectedHunt.photos.length; i++) {
       var marker = {
