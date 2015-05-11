@@ -57,12 +57,10 @@ angular.module('scavengerhunt.newhunts', [])
 
   $scope.map.markers = [];
 
+  //adds markers for each photo selected based on their location data; auto centers and fits the 
+  //map based on the markers
   $scope.setMap = function() {
     if(NewHuntFact.newHunt.photos) {
-      // $scope.map.center.latitude = NewHuntFact.newHunt.cover.lat;
-      // $scope.map.center.longitude = NewHuntFact.newHunt.cover.lon;
-    
-    
       //set markers
       for(var i = 0; i < NewHuntFact.newHunt.photos.length; i++) {
         var marker = {

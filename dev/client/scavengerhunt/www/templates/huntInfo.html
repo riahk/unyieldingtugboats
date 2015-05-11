@@ -11,7 +11,7 @@
       </ui-gmap-markers>
     </ui-gmap-google-map>
     <ion-list ng-repeat="photo in selectedHunt.photos">
-      <ion-item><img class="photo" src="{{photo.src}}"></ion-item>
+      <ion-item><img class="photo" rotate orientation='{{photo.orientation}}' src="{{photo.src}}"></ion-item>
     </ion-list>
     <br>
   </ion-content>

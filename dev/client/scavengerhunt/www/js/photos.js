@@ -32,7 +32,7 @@ angular.module('scavengerhunt.photos', [])
   }); 
 
   // create photo map with default locations
-  $scope.map = { center: { latitude: 37, longitude: -122 }, zoom: 19 };
+  $scope.map = {zoom: 16};
 
   //selected photo is set when a modal is opened
   $scope.selectedPhoto = null;
@@ -41,8 +41,6 @@ angular.module('scavengerhunt.photos', [])
 
   //set location map based on selected photo information
   $scope.setMap = function(lat, lon) {
-    $scope.map.center.latitude = lat;
-    $scope.map.center.longitude = lon;
     
     //set marker
     $scope.marker = {
@@ -52,8 +50,19 @@ angular.module('scavengerhunt.photos', [])
         longitude: lon
       }
     };
-  }
 
+    //determine center of map
+    var bounds = new google.maps.LatLngBounds();
+    var position = new google.maps.LatLng($scope.marker.coords.latitude, $scope.marker.coords.longitude)
+    bounds.extend(position)
+    var centerHolder = bounds.getCenter(); 
+
+    //set center of map
+    $scope.map.center = {
+      longitude: centerHolder.F,
+      latitude: centerHolder.A
+    };
+  }
 })
 .directive('rotate', function() {
     return {

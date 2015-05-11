@@ -40,7 +40,6 @@ module.exports = {
 
 	//creates a document in the db that represents the photo
 	addPhotoToDb : function(filename, gps, orientation, reqBody){
-		console.log('addPhotoToDb');
 		var tags = reqBody.tags.split(',');
 		var info = reqBody.info;
 		Photo.create({
@@ -118,7 +117,6 @@ module.exports = {
 
 	//sends a response with JSON representation of the 30 most recently added photos
 	fetchPhotosByDate: function(req, res, next) {
-		console.log('fetch photos by date called');
 		var limit = 30; 
 		Photo.find({}).limit(limit).sort({date: -1}).exec(function(err, photos) {
 			if (err) {
