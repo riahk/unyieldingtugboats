@@ -110,7 +110,7 @@ angular.module('scavengerhunt', ['ionic',
       $scope.lastPhoto = imageURI;
     }, function(err) {
         console.err(err);
-    }, { quality: 75, targetWidth: 320, targetHeight: 320, saveToPhotoAlbum: false });
+    }, { quality: 20, targetWidth: 320, targetHeight: 320, saveToPhotoAlbum: false });
   };
 
   $scope.uploadPhoto = function(tags, info) {
