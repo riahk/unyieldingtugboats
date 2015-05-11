@@ -47,13 +47,15 @@ angular.module('scavengerhunt.hunts', ['uiGmapgoogle-maps'])
     $scope.modal.remove();
   });
 
-  $scope.map = { center: { latitude: 37, longitude: -122 }, zoom: 19 };
+  // $scope.map = { center: { latitude: 37, longitude: -122 }, zoom: 16 };
+  $scope.map = {zoom: 14};
 
   $scope.map.markers = [];
 
   $scope.setMap = function(lat, lon) {
-    $scope.map.center.latitude = lat;
-    $scope.map.center.longitude = lon;
+    // $scope.map.center.latitude = lat;
+    // $scope.map.center.longitude = lon;
+    var latLngArray = [];
     
     //set markers
     for(var i = 0; i < $scope.selectedHunt.photos.length; i++) {
@@ -61,12 +63,24 @@ angular.module('scavengerhunt.hunts', ['uiGmapgoogle-maps'])
             id: i,
             latitude: $scope.selectedHunt.photos[i].lat,
             longitude: $scope.selectedHunt.photos[i].lon,
-            options: {}
+            options: {},
+            fit : true
       };
       $scope.map.markers.push(marker);
     }
 
-    console.log($scope.map.markers);
+    var bounds = new google.maps.LatLngBounds();
+    $scope.map.markers.forEach(function(marker){
+      var position = new google.maps.LatLng(marker.latitude, marker.longitude)
+      bounds.extend(position)
+    });
+
+    var centerHolder = bounds.getCenter(); 
+
+    $scope.map.center = {
+      longitude: centerHolder.F,
+      latitude: centerHolder.A
+    };
   };  
 })
 .directive('rotate', function() {

@@ -45,8 +45,8 @@ angular.module('scavengerhunt.newhunts', [])
 
     request.request('http://localhost:3000/api/hunts/new', newHunt, function(response) {
       console.log('successfully added hunt? ', response);
+      $state.reload(); 
     });
-    $state.reload(); 
   };
 
   $scope.setZip = function() {
