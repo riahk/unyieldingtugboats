@@ -1,0 +1,19 @@
+<!-- individual hunt view -->
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 ng-click="closeModal()" class="title">{{selectedHunt.info}}</h1>
+  </ion-header-bar>
+  
+  <ion-content>
+    <p>Selected Hunt: </p>
+    <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+      <ui-gmap-markers models="map.markers" coords="'self'" icon="'icon'" fit='true' modelsbyref="false">
+      </ui-gmap-markers>
+    </ui-gmap-google-map>
+    <ion-list ng-repeat="photo in selectedHunt.photos">
+      <ion-item><img class="photo" rotate orientation='{{photo.orientation}}' src="{{photo.src}}"></ion-item>
+    </ion-list>
+    <br>
+  </ion-content>
+</ion-modal-view>
+

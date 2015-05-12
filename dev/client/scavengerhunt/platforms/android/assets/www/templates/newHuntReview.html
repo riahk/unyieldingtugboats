@@ -1,0 +1,16 @@
+<ion-view>
+  <ion-header-bar class="bar-dark bar-subheader">
+  <button class="button" ui-sref="newhuntphotos">Back</button>
+  <h1 class="title">Review Hunt in {{zipcode}}</h1>
+  </ion-header-bar>
+  <ion-content>
+    <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+      <ui-gmap-markers models="map.markers" coords="'self'" icon="'icon'" fit='true' modelsbyref="false">
+      </ui-gmap-markers>
+    </ui-gmap-google-map> 
+    <label class="item item-input">
+      <input type="text" ng-model="info" placeholder="describe this hunt"></input>
+    </label>
+    <button ng-click="addHunt(info)" ui-sref="home" class="button button-block">Save and Submit</button>
+  </ion-content>
+</ion-view>

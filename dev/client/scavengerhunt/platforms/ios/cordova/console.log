@@ -1,0 +1,17 @@
+2015-05-05 20:52:47.293 scavengerhunt[83076:7641258] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/Riah/Library/Developer/CoreSimulator/Devices/B9BD7428-894C-4283-9F2D-E1654AF2CF7E/data/Containers/Data/Application/9698980C-8608-4A65-9F8A-E90E48F39E69/Library/Cookies/Cookies.binarycookies
+2015-05-05 20:52:47.653 scavengerhunt[83076:7641258] Apache Cordova native platform version 3.8.0 is starting.
+2015-05-05 20:52:47.654 scavengerhunt[83076:7641258] Multi-tasking -> Device: YES, App: YES
+2015-05-05 20:52:47.674 scavengerhunt[83076:7641258] Unlimited access to network resources
+2015-05-05 20:52:47.998 scavengerhunt[83076:7641258] [CDVTimer][keyboard] 0.104964ms
+2015-05-05 20:52:47.999 scavengerhunt[83076:7641258] [CDVTimer][TotalPluginStartup] 0.317037ms
+2015-05-05 20:52:48.624 scavengerhunt[83076:7641258] Resetting plugins due to page load.
+2015-05-05 20:52:49.669 scavengerhunt[83076:7641258] Finished load of: file:///Users/Riah/Library/Developer/CoreSimulator/Devices/B9BD7428-894C-4283-9F2D-E1654AF2CF7E/data/Containers/Bundle/Application/102D2BDD-2A86-4D7C-A9E9-5AEA35EFBBE7/scavengerhunt.app/www/index.html#/
+2015-05-05 20:53:21.625 scavengerhunt[83076:7641258] []
+2015-05-05 20:53:28.742 scavengerhunt[83076:7641258] zipcode set!
+2015-05-05 20:53:28.742 scavengerhunt[83076:7641258] {"zipcode":"94539"}
+2015-05-05 20:53:28.743 scavengerhunt[83076:7641258] null
+2015-05-05 20:53:28.804 scavengerhunt[83076:7641258] []
+2015-05-05 20:53:36.692 scavengerhunt[83076:7641258] added!
+2015-05-05 20:53:36.692 scavengerhunt[83076:7641258] {"zipcode":"94539","photos":[{"src":"img/noah.jpg","lat":37.783482,"lon":-122.409116,"comment":"It's Noah!!! Nice hat.","$$hashKey":"object:25"}],"cover":{"src":"img/noah.jpg","lat":37.783482,"lon":-122.409116,"comment":"It's Noah!!! Nice hat.","$$hashKey":"object:25"}}
+2015-05-05 20:53:38.082 scavengerhunt[83076:7641258] [{"id":0,"latitude":37.783482,"longitude":-122.409116,"options":{}}]
+2015-05-05 20:56:20.646 scavengerhunt[83076:7641258] {}
